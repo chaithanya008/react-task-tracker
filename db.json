@@ -9,7 +9,7 @@
     {
       "text": "this",
       "day": "this too",
-      "reminder": false,
+      "reminder": true,
       "id": 9
     },
     {

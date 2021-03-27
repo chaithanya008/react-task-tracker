@@ -1,9 +1,12 @@
 import Header from './components/Header';
+import Footer from './components/Footer';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import About from './components/About';
 import Tasks from './components/Tasks';
 import AddTask from './components/AddTask';
 import { useState, useEffect } from 'react';
 
-function App() {
+const App = () => {
   // [name of state/const array(?), function to update this state] = using useState Hook
   const [showAddTaskForm, setShowAddTaskForm] = useState(false);
 
@@ -89,14 +92,14 @@ function App() {
     // console.log('deleted task with id:', id);
 
     // filter out/ delete task with id that is clicked - dont show
-    setTasks(tasks.filter((task) => task.id !== id));
+    res.status === 200 ? setTasks(tasks.filter((task) => task.id !== id));
   };
 
   const toggleReminder = async (id) => {
     const taskToToggle = await fetchTask(id);
     const updTask = { ...taskToToggle, reminder: !taskToToggle.reminder };
 
-    const res = await fetch(`http:localhost:5000/tasks/${id}`, {
+    const res = await fetch(`http://localhost:5000/tasks/${id}`, {
       method: 'PUT',
       headers: {
         'Content-type': 'application/json',
@@ -120,12 +123,32 @@ function App() {
   };
 
   return (
-    <div className='container'>
-      <Header tasks={tasks} onAdd={() => setShowAddTaskForm(!showAddTaskForm)} showCloseBtn={showAddTaskForm} />
-      {showAddTaskForm && <AddTask onAdd={addTask} />}
-      {tasks.length > 0 ? <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder} /> : 'No tasks to show'}
-    </div>
+    <Router>
+      <div className='container'>
+        <Header
+          // tasks={tasks}
+          onAdd={() => setShowAddTaskForm(!showAddTaskForm)}
+          showCloseBtn={showAddTaskForm}
+        />
+        <Route
+          path='/'
+          exact
+          render={(props) => (
+            <>
+              {showAddTaskForm && <AddTask onAdd={addTask} />}
+              {tasks.length > 0 ? (
+                <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder} />
+              ) : (
+                'No tasks to show'
+              )}
+            </>
+          )}
+        />
+        <Route path='/about' component={About}></Route>
+        <Footer />
+      </div>
+    </Router>
   );
-}
+};
 
 export default App;
