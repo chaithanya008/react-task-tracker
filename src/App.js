@@ -92,7 +92,7 @@ const App = () => {
     // console.log('deleted task with id:', id);
 
     // filter out/ delete task with id that is clicked - dont show
-    res.status === 200 ? setTasks(tasks.filter((task) => task.id !== id));
+    setTasks(tasks.filter((task) => task.id !== id));
   };
 
   const toggleReminder = async (id) => {

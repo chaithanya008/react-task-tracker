@@ -3,7 +3,7 @@
     {
       "text": "this",
       "day": "this too",
-      "reminder": false,
+      "reminder": true,
       "id": 8
     },
     {
@@ -17,6 +17,12 @@
       "day": "sdfsadf",
       "reminder": false,
       "id": 10
+    },
+    {
+      "text": "test1",
+      "day": "test date",
+      "reminder": false,
+      "id": 11
     }
   ]
 }
